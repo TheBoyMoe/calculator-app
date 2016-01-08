@@ -32,4 +32,10 @@ public class CalculatorActivityTest {
     }
 
 
+    @Test
+    public void shouldHaveDisplayFragment() throws Exception {
+        assertNotNull(mCalculatorActivity.getFragmentManager()
+                .findFragmentById(R.id.display_fragment_container));
+    }
+
 }

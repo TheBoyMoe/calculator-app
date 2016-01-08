@@ -9,5 +9,13 @@ public class CalculatorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
+
+        if(getFragmentManager().findFragmentById(R.id.display_fragment_container) == null) {
+            getFragmentManager().beginTransaction()
+                    .add(R.id.display_fragment_container, DisplayFragment.newInstance())
+                    .commit();
+        }
     }
+
+
 }
