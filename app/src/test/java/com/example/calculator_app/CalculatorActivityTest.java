@@ -1,5 +1,6 @@
 package com.example.calculator_app;
 
+import android.app.Fragment;
 import android.os.Build;
 
 import org.junit.Before;
@@ -34,14 +35,16 @@ public class CalculatorActivityTest {
 
     @Test
     public void shouldHaveDisplayFragment() throws Exception {
-        assertNotNull(mCalculatorActivity.getFragmentManager()
-                .findFragmentById(R.id.display_fragment_container));
+        assertNotNull(getFragmentById(R.id.display_fragment_container));
     }
 
     @Test
     public void shouldHaveButtonsFragment() throws Exception {
-        assertNotNull(mCalculatorActivity.getFragmentManager()
-                .findFragmentById(R.id.buttons_fragment_container));
+        assertNotNull(getFragmentById(R.id.buttons_fragment_container));
 
+    }
+
+    private Fragment getFragmentById(int id) {
+        return mCalculatorActivity.getFragmentManager().findFragmentById(id);
     }
 }
