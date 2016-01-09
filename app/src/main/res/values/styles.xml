@@ -52,5 +52,21 @@
     </style>
 
 
+    <!-- Display style -->
+    <style name="DisplayStyle">
+        <item name="android:textColor">@color/colorDisplayText</item>
+        <item name="android:paddingTop">@dimen/display_padding</item>
+        <item name="android:paddingBottom">@dimen/display_padding</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/display_text_size</item>
+        <item name="android:maxLength">@integer/display_max_length</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:editable">false</item>
+        <item name="android:inputType">none</item>
+        <item name="android:focusable">false</item>
+        <item name="android:focusableInTouchMode">false</item>
+        <item name="android:background">@color/colorDisplayBackground</item>
+    </style>
+
 
 </resources>

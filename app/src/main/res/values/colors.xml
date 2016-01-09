@@ -11,5 +11,6 @@
     <color name="colorOperatorBackground">#668113</color>
     <color name="colorClearBackground">#B0281A</color>
     <color name="colorEqualsBackground">#268474</color>
+    <color name="colorDisplayBackground">#FFFFFF</color>
 
 </resources>
