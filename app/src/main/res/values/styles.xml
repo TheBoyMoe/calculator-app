@@ -13,4 +13,44 @@
 
     </style>
 
+
+    <!-- Button style -->
+    <style name="BaseButton">
+        <item name="android:layout_width">@dimen/button_dimensions</item>
+        <item name="android:layout_height">@dimen/button_dimensions</item>
+        <item name="android:layout_margin">@dimen/button_margin</item>
+        <item name="android:textSize">@dimen/button_text_size</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+
+    <!-- Number style -->
+    <style name="NumberStyle" parent="BaseButton">
+        <item name="android:background">@color/colorButtonBackground</item>
+    </style>
+
+    <!-- Zero style -->
+    <style name="ZeroStyle" parent="NumberStyle">
+        <item name="android:layout_width">@dimen/zero_button_width</item>
+    </style>
+
+    <!-- Operator style -->
+    <style name="OperatorStyle" parent="NumberStyle">
+        <item name="android:background">@color/colorOperatorBackground</item>
+    </style>
+
+
+    <!-- Clear style -->
+    <style name="ClearStyle" parent="NumberStyle">
+        <item name="android:background">@color/colorClearBackground</item>
+    </style>
+
+    <!-- Equals style -->
+    <style name="EqualsStyle" parent="NumberStyle">
+        <item name="android:background">@color/colorEqualsBackground</item>
+        <item name="android:layout_width">@dimen/equals_button_width</item>
+    </style>
+
+
+
 </resources>

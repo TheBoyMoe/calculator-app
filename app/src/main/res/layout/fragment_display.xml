@@ -2,7 +2,7 @@
 <EditText xmlns:android="http://schemas.android.com/apk/res/android"
           android:id="@+id/calculator_display"
           android:text="@string/default_display_text"
-          android:textColor="@color/nearly_black"
+          android:textColor="@color/colorDisplayText"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:paddingTop="20dp"

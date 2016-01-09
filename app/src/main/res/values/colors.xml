@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="nearly_black">#313131</color>
+
+    <!-- App colors -->
+    <color name="colorDisplayText">#313131</color>
+    <color name="colorButtonBackground">#876D13</color>
+    <color name="colorOperatorBackground">#668113</color>
+    <color name="colorClearBackground">#B0281A</color>
+    <color name="colorEqualsBackground">#268474</color>
+
 </resources>
