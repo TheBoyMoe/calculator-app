@@ -8,12 +8,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowToast;
 
 import static com.example.support.Assert.assertButtonIsVisibleAndHasLabel;
 import static com.example.support.Assert.assertViewIsVisible;
 import static com.example.support.ViewLocator.getButton;
 import static com.example.support.ViewLocator.getView;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 import static org.robolectric.util.FragmentTestUtil.startFragment;
 
 @RunWith(RobolectricGradleTestRunner.class)
@@ -21,11 +24,45 @@ import static org.robolectric.util.FragmentTestUtil.startFragment;
 public class ButtonsFragmentTest {
 
     private ButtonsFragment mButtonsFragment;
+    private Button mButtonOne;
+    private Button mButtonTwo;
+    private Button mButtonThree;
+    private Button mButtonFour;
+    private Button mButtonFive;
+    private Button mButtonSix;
+    private Button mButtonSeven;
+    private Button mButtonEight;
+    private Button mButtonNine;
+    private Button mButtonZero;
+    private Button mButtonPlus;
+    private Button mButtonMinus;
+    private Button mButtonMultiply;
+    private Button mButtonDivide;
+    private Button mButtonModulus;
+    private Button mButtonEquals;
+    private Button mButtonClear;
 
     @Before
     public void setUp() throws Exception {
         mButtonsFragment = ButtonsFragment.newInstance();
         startFragment(mButtonsFragment);
+        mButtonOne = getButton(mButtonsFragment, R.id.button_one);
+        mButtonTwo = getButton(mButtonsFragment, R.id.button_two);
+        mButtonThree = getButton(mButtonsFragment, R.id.button_three);
+        mButtonFour = getButton(mButtonsFragment, R.id.button_four);
+        mButtonFive = getButton(mButtonsFragment, R.id.button_five);
+        mButtonSix = getButton(mButtonsFragment, R.id.button_six);
+        mButtonSeven = getButton(mButtonsFragment, R.id.button_seven);
+        mButtonEight = getButton(mButtonsFragment, R.id.button_eight);
+        mButtonNine = getButton(mButtonsFragment, R.id.button_nine);
+        mButtonZero = getButton(mButtonsFragment, R.id.button_zero);
+        mButtonPlus = getButton(mButtonsFragment, R.id.button_plus);
+        mButtonMinus = getButton(mButtonsFragment, R.id.button_minus);
+        mButtonMultiply = getButton(mButtonsFragment, R.id.button_multiply);
+        mButtonDivide = getButton(mButtonsFragment, R.id.button_divide);
+        mButtonModulus = getButton(mButtonsFragment, R.id.button_modulus);
+        mButtonEquals = getButton(mButtonsFragment, R.id.button_equals);
+        mButtonClear = getButton(mButtonsFragment, R.id.button_clear);
     }
 
     @Test
@@ -40,104 +77,99 @@ public class ButtonsFragmentTest {
 
     @Test
     public void shouldHaveButtonOne() throws Exception {
-        Button buttonOne = getButton(mButtonsFragment, R.id.button_one);
-        assertButtonIsVisibleAndHasLabel(buttonOne, R.string.button_one_label);
+        assertButtonIsVisibleAndHasLabel(mButtonOne, R.string.button_one_label);
     }
 
     @Test
     public void shouldShouldHaveButtonTwo() throws Exception {
-        Button buttonTwo = getButton(mButtonsFragment, R.id.button_two);
-        assertButtonIsVisibleAndHasLabel(buttonTwo, R.string.button_two_label);
+        assertButtonIsVisibleAndHasLabel(mButtonTwo, R.string.button_two_label);
     }
 
     @Test
     public void shouldHaveButtonThree() throws Exception {
-        Button buttonThree = getButton(mButtonsFragment, R.id.button_three);
-        assertButtonIsVisibleAndHasLabel(buttonThree, R.string.button_three_label);
+        assertButtonIsVisibleAndHasLabel(mButtonThree, R.string.button_three_label);
     }
 
     @Test
     public void shouldHaveButtonFour() throws Exception {
-        Button buttonFour = getButton(mButtonsFragment, R.id.button_four);
-        assertButtonIsVisibleAndHasLabel(buttonFour, R.string.button_four_label);
+        assertButtonIsVisibleAndHasLabel(mButtonFour, R.string.button_four_label);
     }
 
     @Test
     public void shouldHaveButtonFive() throws Exception {
-        Button buttonOne = getButton(mButtonsFragment, R.id.button_five);
-        assertButtonIsVisibleAndHasLabel(buttonOne, R.string.button_five_label);
+        assertButtonIsVisibleAndHasLabel(mButtonFive, R.string.button_five_label);
     }
 
     @Test
     public void shouldShouldHaveButtonSix() throws Exception {
-        Button buttonTwo = getButton(mButtonsFragment, R.id.button_six);
-        assertButtonIsVisibleAndHasLabel(buttonTwo, R.string.button_six_label);
+        assertButtonIsVisibleAndHasLabel(mButtonSix, R.string.button_six_label);
     }
 
     @Test
     public void shouldHaveButtonSeven() throws Exception {
-        Button buttonThree = getButton(mButtonsFragment, R.id.button_seven);
-        assertButtonIsVisibleAndHasLabel(buttonThree, R.string.button_seven_label);
+        assertButtonIsVisibleAndHasLabel(mButtonSeven, R.string.button_seven_label);
     }
 
     @Test
     public void shouldHaveButtonEight() throws Exception {
-        Button buttonFour = getButton(mButtonsFragment, R.id.button_eight);
-        assertButtonIsVisibleAndHasLabel(buttonFour, R.string.button_eight_label);
+        assertButtonIsVisibleAndHasLabel(mButtonEight, R.string.button_eight_label);
     }
 
     @Test
     public void shouldHaveButtonNine() throws Exception {
-        Button buttonOne = getButton(mButtonsFragment, R.id.button_nine);
-        assertButtonIsVisibleAndHasLabel(buttonOne, R.string.button_nine_label);
+        assertButtonIsVisibleAndHasLabel(mButtonNine, R.string.button_nine_label);
     }
 
     @Test
     public void shouldShouldHaveButtonZero() throws Exception {
-        Button buttonTwo = getButton(mButtonsFragment, R.id.button_zero);
-        assertButtonIsVisibleAndHasLabel(buttonTwo, R.string.button_zero_label);
+        assertButtonIsVisibleAndHasLabel(mButtonZero, R.string.button_zero_label);
     }
 
     @Test
     public void shouldHavePlus() throws Exception {
-        Button buttonThree = getButton(mButtonsFragment, R.id.button_plus);
-        assertButtonIsVisibleAndHasLabel(buttonThree, R.string.button_plus_label);
+        assertButtonIsVisibleAndHasLabel(mButtonPlus, R.string.button_plus_label);
     }
 
     @Test
     public void shouldHaveButtonMinus() throws Exception {
-        Button buttonFour = getButton(mButtonsFragment, R.id.button_minus);
-        assertButtonIsVisibleAndHasLabel(buttonFour, R.string.button_minus_label);
+        assertButtonIsVisibleAndHasLabel(mButtonMinus, R.string.button_minus_label);
     }
 
     @Test
     public void shouldHaveButtonMultiply() throws Exception {
-        Button buttonOne = getButton(mButtonsFragment, R.id.button_multiply);
-        assertButtonIsVisibleAndHasLabel(buttonOne, R.string.button_multiply_label);
+        assertButtonIsVisibleAndHasLabel(mButtonMultiply, R.string.button_multiply_label);
     }
 
     @Test
     public void shouldShouldHaveButtonDivide() throws Exception {
-        Button buttonTwo = getButton(mButtonsFragment, R.id.button_divide);
-        assertButtonIsVisibleAndHasLabel(buttonTwo, R.string.button_divide_label);
+        assertButtonIsVisibleAndHasLabel(mButtonDivide, R.string.button_divide_label);
     }
 
     @Test
     public void shouldHaveButtonModulus() throws Exception {
-        Button buttonThree = getButton(mButtonsFragment, R.id.button_modulus);
-        assertButtonIsVisibleAndHasLabel(buttonThree, R.string.button_modulus_label);
+        assertButtonIsVisibleAndHasLabel(mButtonModulus, R.string.button_modulus_label);
     }
 
     @Test
     public void shouldHaveButtonEquals() throws Exception {
-        Button buttonFour = getButton(mButtonsFragment, R.id.button_equals);
-        assertButtonIsVisibleAndHasLabel(buttonFour, R.string.button_equals_label);
+        assertButtonIsVisibleAndHasLabel(mButtonEquals, R.string.button_equals_label);
     }
 
     @Test
     public void shouldHaveButtonClear() throws Exception {
-        Button buttonFour = getButton(mButtonsFragment, R.id.button_clear);
-        assertButtonIsVisibleAndHasLabel(buttonFour, R.string.button_clear_label);
+        assertButtonIsVisibleAndHasLabel(mButtonClear, R.string.button_clear_label);
+    }
+
+    @Test
+    public void buttonOneShouldToastOnClick() throws Exception {
+        verifyButtonShouldToast(mButtonOne);
+    }
+
+
+
+    private void verifyButtonShouldToast(Button button) {
+        button.performClick();
+        assertThat(ShadowToast.getTextOfLatestToast(), equalTo(button.getText()));
     }
 
 }
