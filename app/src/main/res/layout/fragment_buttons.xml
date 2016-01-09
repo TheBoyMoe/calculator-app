@@ -7,6 +7,14 @@
 
     <Button
         android:id="@+id/button_one"
+        android:text="@string/button_one_label"
+        android:layout_width="@dimen/button_width"
+        android:layout_height="@dimen/button_height"
+        android:layout_margin="@dimen/button_margin"/>
+
+    <Button
+        android:id="@+id/button_two"
+        android:text="@string/button_two_label"
         android:layout_width="@dimen/button_width"
         android:layout_height="@dimen/button_height"
         android:layout_margin="@dimen/button_margin"/>

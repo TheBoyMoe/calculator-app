@@ -1,6 +1,7 @@
 package com.example.support;
 
 import android.view.View;
+import android.widget.Button;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertNotNull;
@@ -12,4 +13,11 @@ public class Assert {
         assertNotNull( view );
         assertThat( view.getVisibility(), equalTo( View.VISIBLE ) );
     }
+
+    public static void assertButtonIsVisibleAndHasLabel(Button button, int id) {
+        assertViewIsVisible(button);
+        assertThat(button.getText().toString(),
+                equalTo(ResourceLocator.getString(id)));
+    }
+
 }

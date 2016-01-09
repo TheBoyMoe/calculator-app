@@ -1,6 +1,7 @@
 package com.example.calculator_app;
 
 import android.os.Build;
+import android.widget.Button;
 
 import com.example.support.ViewLocator;
 
@@ -10,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
+import static com.example.support.Assert.assertButtonIsVisibleAndHasLabel;
 import static com.example.support.Assert.assertViewIsVisible;
 import static org.junit.Assert.assertNotNull;
 import static org.robolectric.util.FragmentTestUtil.startFragment;
@@ -37,8 +39,15 @@ public class ButtonsFragmentTest {
     }
 
     @Test
-    public void shouldHaveOneButton() throws Exception {
-        assertViewIsVisible(ViewLocator.getView(mButtonsFragment, R.id.button_one));
+    public void shouldHaveButtonOne() throws Exception {
+        Button buttonOne = ViewLocator.getButton(mButtonsFragment, R.id.button_one);
+        assertButtonIsVisibleAndHasLabel(buttonOne, R.string.button_one_label);
+    }
+
+    @Test
+    public void shouldShouldHaveButtonTwo() throws Exception {
+        Button buttonTwo = ViewLocator.getButton(mButtonsFragment, R.id.button_two);
+        assertButtonIsVisibleAndHasLabel(buttonTwo, R.string.button_two_label);
     }
 
 
