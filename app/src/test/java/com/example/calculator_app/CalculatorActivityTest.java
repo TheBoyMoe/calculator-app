@@ -38,4 +38,10 @@ public class CalculatorActivityTest {
                 .findFragmentById(R.id.display_fragment_container));
     }
 
+    @Test
+    public void shouldHaveButtonsFragment() throws Exception {
+        assertNotNull(mCalculatorActivity.getFragmentManager()
+                .findFragmentById(R.id.buttons_fragment_container));
+
+    }
 }

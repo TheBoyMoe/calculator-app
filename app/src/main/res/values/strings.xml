@@ -3,4 +3,19 @@
     <string name="default_display_text">Display</string>
     <string name="button_one_label">1</string>
     <string name="button_two_label">2</string>
+    <string name="button_three_label">3</string>
+    <string name="button_four_label">4</string>
+    <string name="button_five_label">5</string>
+    <string name="button_six_label">6</string>
+    <string name="button_seven_label">7</string>
+    <string name="button_eight_label">8</string>
+    <string name="button_nine_label">9</string>
+    <string name="button_zero_label">0</string>
+    <string name="button_plus_label">+</string>
+    <string name="button_minus_label">-</string>
+    <string name="button_multiply_label">*</string>
+    <string name="button_divide_label">/</string>
+    <string name="button_modulus_label">%</string>
+    <string name="button_equals_label">=</string>
+    <string name="button_clear_label">C</string>
 </resources>
