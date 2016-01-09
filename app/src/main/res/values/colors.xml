@@ -7,10 +7,16 @@
 
     <!-- App colors -->
     <color name="colorDisplayText">#313131</color>
+    <color name="colorFocusedBackground">#AFB315</color>
     <color name="colorButtonBackground">#876D13</color>
+    <color name="colorButtonBackgroundSelected">#604613</color>
     <color name="colorOperatorBackground">#668113</color>
+    <color name="colorOperatorBackgroundSelected">#3F4F0D</color>
     <color name="colorClearBackground">#B0281A</color>
+    <color name="colorClearBackgroundSelected">#7D1918</color>
     <color name="colorEqualsBackground">#268474</color>
+    <color name="colorEqualsBackgroundSelected">#144A40</color>
     <color name="colorDisplayBackground">#FFFFFF</color>
+    
 
 </resources>
