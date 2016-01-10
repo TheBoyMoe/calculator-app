@@ -3,6 +3,7 @@ package com.example.calculator_app;
 
 import android.os.Build;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
@@ -15,9 +16,21 @@ import static org.junit.Assert.assertNotNull;
 public class CalculatorApplicationTest {
 
 
+    private CalculatorApplication mApplication;
+
+    @Before
+    public void setUp() throws Exception {
+        mApplication = CalculatorApplication.newInstance();
+    }
+
     @Test
     public void shouldNotBeNull() throws Exception {
-        assertNotNull(CalculatorApplication.newInstance());
+        assertNotNull(mApplication);
+    }
+
+    @Test
+    public void shouldHaveBus() throws Exception {
+        assertNotNull(mApplication.getBus());
 
     }
 }
