@@ -2,6 +2,7 @@ package com.example.calculator_app;
 
 import android.app.Application;
 
+import com.example.calculator_app.events.BaseEvent;
 import com.squareup.otto.Bus;
 
 public class CalculatorApplication extends Application{
@@ -10,7 +11,7 @@ public class CalculatorApplication extends Application{
 
     private static CalculatorApplication instance = new CalculatorApplication();
 
-    public static CalculatorApplication newInstance() {
+    public static CalculatorApplication getInstance() {
         return instance;
     }
 
@@ -22,5 +23,9 @@ public class CalculatorApplication extends Application{
 
     public Bus getBus() {
         return mBus;
+    }
+
+    public static void postToBus(BaseEvent event) {
+        getInstance().getBus().post(event);
     }
 }

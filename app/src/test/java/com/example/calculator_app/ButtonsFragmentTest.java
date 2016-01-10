@@ -3,6 +3,10 @@ package com.example.calculator_app;
 import android.os.Build;
 import android.widget.Button;
 
+import com.example.calculator_app.events.BaseEvent;
+import com.example.calculator_app.events.NumberEvent;
+import com.example.support.BusHelper;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +21,7 @@ import static com.example.support.ViewLocator.getView;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.robolectric.util.FragmentTestUtil.startFragment;
 
 @RunWith(RobolectricGradleTestRunner.class)
@@ -41,9 +46,15 @@ public class ButtonsFragmentTest {
     private Button mButtonModulus;
     private Button mButtonEquals;
     private Button mButtonClear;
+    private BusHelper mBusHelper;
 
     @Before
     public void setUp() throws Exception {
+
+        // register the event bus helper in order to receive events
+        mBusHelper = new BusHelper();
+        CalculatorApplication.getInstance().getBus().register(mBusHelper);
+
         mButtonsFragment = ButtonsFragment.newInstance();
         startFragment(mButtonsFragment);
         mButtonOne = getButton(mButtonsFragment, R.id.button_one);
@@ -164,95 +175,98 @@ public class ButtonsFragmentTest {
 
     // verify button interaction
     @Test
-    public void buttonOneShouldToastOnClick() throws Exception {
-        verifyNumberButtonShouldToast(mButtonOne);
+    public void buttonOneShouldPostEvent() throws Exception {
+        verifyNumberEvent(mButtonOne);
     }
 
     @Test
-    public void buttonTwoShouldToastOnClick() throws Exception {
-        verifyNumberButtonShouldToast(mButtonTwo);
+    public void buttonTwoShouldPostEvent() throws Exception {
+        verifyNumberEvent(mButtonTwo);
     }
 
     @Test
-    public void buttonThreeShouldToastOnClick() throws Exception {
-        verifyNumberButtonShouldToast(mButtonThree);
+    public void buttonThreeShouldPostEvent() throws Exception {
+        verifyNumberEvent(mButtonThree);
     }
 
     @Test
-    public void buttonFourShouldToastOnClick() throws Exception {
-        verifyNumberButtonShouldToast(mButtonFour);
+    public void buttonFourShouldPostEvent() throws Exception {
+        verifyNumberEvent(mButtonFour);
     }
 
     @Test
-    public void buttonFiveShouldToastOnClick() throws Exception {
-        verifyNumberButtonShouldToast(mButtonFive);
+    public void buttonFiveShouldPostEvent() throws Exception {
+        verifyNumberEvent(mButtonFive);
     }
 
     @Test
     public void buttonSixShouldToastOnClick() throws Exception {
-        verifyNumberButtonShouldToast(mButtonSix);
+        verifyNumberEvent(mButtonSix);
     }
 
     @Test
-    public void buttonSevenShouldToastOnClick() throws Exception {
-        verifyNumberButtonShouldToast(mButtonSeven);
+    public void buttonSevenShouldPostEvent() throws Exception {
+        verifyNumberEvent(mButtonSeven);
     }
 
     @Test
-    public void buttonEightShouldToastOnClick() throws Exception {
-        verifyNumberButtonShouldToast(mButtonEight);
+    public void buttonEightShouldPostEvent() throws Exception {
+        verifyNumberEvent(mButtonEight);
     }
 
     @Test
-    public void buttonNineShouldToastOnClick() throws Exception {
-        verifyNumberButtonShouldToast(mButtonNine);
+    public void buttonNineShouldPostEvent() throws Exception {
+        verifyNumberEvent(mButtonNine);
     }
 
     @Test
-    public void buttonZeroShouldToastOnClick() throws Exception {
-        verifyNumberButtonShouldToast(mButtonZero);
+    public void buttonZeroShouldPostEvent() throws Exception {
+        verifyNumberEvent(mButtonZero);
     }
 
     @Test
-    public void buttonPlusShouldToastOnClick() throws Exception {
+    public void buttonPlusShouldPostEvent() throws Exception {
         verifyOperatorButtonShouldToast(mButtonPlus);
     }
 
     @Test
-    public void buttonMinusShouldToastOnClick() throws Exception {
+    public void buttonMinusShouldPostEvent() throws Exception {
         verifyOperatorButtonShouldToast(mButtonMinus);
     }
 
     @Test
-    public void buttonDivideShouldToastOnClick() throws Exception {
+    public void buttonDivideShouldPostEvent() throws Exception {
         verifyOperatorButtonShouldToast(mButtonDivide);
     }
 
     @Test
-    public void buttonMultiplyShouldToastOnClick() throws Exception {
+    public void buttonMultiplyShouldPostEvent() throws Exception {
         verifyOperatorButtonShouldToast(mButtonMultiply);
     }
 
     @Test
-    public void buttonModulusShouldToastOnClick() throws Exception {
+    public void buttonModulusShouldPostEvent() throws Exception {
         verifyOperatorButtonShouldToast(mButtonModulus);
     }
 
     @Test
-    public void buttonEqualsShouldToastOnClick() throws Exception {
+    public void buttonEqualsShouldPostEvent() throws Exception {
         verifyEqualsButtonShouldToast(mButtonEquals);
     }
 
     @Test
-    public void buttonClearShouldToastOnClick() throws Exception {
+    public void buttonClearShouldPostEvent() throws Exception {
         verifyClearButtonShouldToast(mButtonClear);
     }
 
 
 
-    private void verifyNumberButtonShouldToast(Button button) {
+    private void verifyNumberEvent(Button button) {
         button.performClick();
-        assertThat(ShadowToast.getTextOfLatestToast(), equalTo(button.getText()));
+        BaseEvent event = mBusHelper.getLastEvent();
+        assertTrue(event instanceof NumberEvent);
+        assertThat(((NumberEvent)event).getNumber(),
+                equalTo(button.getText()));
     }
 
     private void verifyOperatorButtonShouldToast(Button button) {

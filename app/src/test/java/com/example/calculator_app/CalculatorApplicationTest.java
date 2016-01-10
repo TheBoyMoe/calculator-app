@@ -20,7 +20,7 @@ public class CalculatorApplicationTest {
 
     @Before
     public void setUp() throws Exception {
-        mApplication = CalculatorApplication.newInstance();
+        mApplication = CalculatorApplication.getInstance();
     }
 
     @Test
