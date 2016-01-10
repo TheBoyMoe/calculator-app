@@ -75,6 +75,7 @@ public class ButtonsFragmentTest {
         assertViewIsVisible(getView(mButtonsFragment, R.id.fragment_buttons));
     }
 
+    // verify buttons present and correct label applied
     @Test
     public void shouldHaveButtonOne() throws Exception {
         assertButtonIsVisibleAndHasLabel(mButtonOne, R.string.button_one_label);
@@ -160,16 +161,113 @@ public class ButtonsFragmentTest {
         assertButtonIsVisibleAndHasLabel(mButtonClear, R.string.button_clear_label);
     }
 
+
+    // verify button interaction
     @Test
     public void buttonOneShouldToastOnClick() throws Exception {
-        verifyButtonShouldToast(mButtonOne);
+        verifyNumberButtonShouldToast(mButtonOne);
+    }
+
+    @Test
+    public void buttonTwoShouldToastOnClick() throws Exception {
+        verifyNumberButtonShouldToast(mButtonTwo);
+    }
+
+    @Test
+    public void buttonThreeShouldToastOnClick() throws Exception {
+        verifyNumberButtonShouldToast(mButtonThree);
+    }
+
+    @Test
+    public void buttonFourShouldToastOnClick() throws Exception {
+        verifyNumberButtonShouldToast(mButtonFour);
+    }
+
+    @Test
+    public void buttonFiveShouldToastOnClick() throws Exception {
+        verifyNumberButtonShouldToast(mButtonFive);
+    }
+
+    @Test
+    public void buttonSixShouldToastOnClick() throws Exception {
+        verifyNumberButtonShouldToast(mButtonSix);
+    }
+
+    @Test
+    public void buttonSevenShouldToastOnClick() throws Exception {
+        verifyNumberButtonShouldToast(mButtonSeven);
+    }
+
+    @Test
+    public void buttonEightShouldToastOnClick() throws Exception {
+        verifyNumberButtonShouldToast(mButtonEight);
+    }
+
+    @Test
+    public void buttonNineShouldToastOnClick() throws Exception {
+        verifyNumberButtonShouldToast(mButtonNine);
+    }
+
+    @Test
+    public void buttonZeroShouldToastOnClick() throws Exception {
+        verifyNumberButtonShouldToast(mButtonZero);
+    }
+
+    @Test
+    public void buttonPlusShouldToastOnClick() throws Exception {
+        verifyOperatorButtonShouldToast(mButtonPlus);
+    }
+
+    @Test
+    public void buttonMinusShouldToastOnClick() throws Exception {
+        verifyOperatorButtonShouldToast(mButtonMinus);
+    }
+
+    @Test
+    public void buttonDivideShouldToastOnClick() throws Exception {
+        verifyOperatorButtonShouldToast(mButtonDivide);
+    }
+
+    @Test
+    public void buttonMultiplyShouldToastOnClick() throws Exception {
+        verifyOperatorButtonShouldToast(mButtonMultiply);
+    }
+
+    @Test
+    public void buttonModulusShouldToastOnClick() throws Exception {
+        verifyOperatorButtonShouldToast(mButtonModulus);
+    }
+
+    @Test
+    public void buttonEqualsShouldToastOnClick() throws Exception {
+        verifyEqualsButtonShouldToast(mButtonEquals);
+    }
+
+    @Test
+    public void buttonClearShouldToastOnClick() throws Exception {
+        verifyClearButtonShouldToast(mButtonClear);
     }
 
 
 
-    private void verifyButtonShouldToast(Button button) {
+    private void verifyNumberButtonShouldToast(Button button) {
         button.performClick();
         assertThat(ShadowToast.getTextOfLatestToast(), equalTo(button.getText()));
     }
 
+    private void verifyOperatorButtonShouldToast(Button button) {
+        button.performClick();
+        assertThat(ShadowToast.getTextOfLatestToast(), equalTo(button.getText()));
+    }
+
+
+    private void verifyEqualsButtonShouldToast(Button button) throws Exception {
+        button.performClick();
+        assertThat(ShadowToast.getTextOfLatestToast(), equalTo(button.getText()));
+    }
+
+    private void verifyClearButtonShouldToast(Button button) throws Exception {
+        button.performClick();
+        assertThat(ShadowToast.getTextOfLatestToast(), equalTo(button.getText()));
+    }
 }
