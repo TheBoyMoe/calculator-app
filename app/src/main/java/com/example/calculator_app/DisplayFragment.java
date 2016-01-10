@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.example.calculator_app.events.DisplayEvent;
+import com.example.calculator_app.events.OperatorEvent;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
@@ -26,6 +27,12 @@ public class DisplayFragment extends Fragment{
         mView = (EditText) inflater.inflate(R.layout.fragment_display, container, false);
 
         return mView;
+    }
+
+    @SuppressWarnings("unused")
+    @Subscribe
+    public void onOperatorDisplay(OperatorEvent event) {
+        mView.setText(event.getOperator());
     }
 
     @SuppressWarnings("unused")

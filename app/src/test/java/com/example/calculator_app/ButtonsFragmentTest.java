@@ -5,8 +5,8 @@ import android.widget.Button;
 
 import com.example.calculator_app.events.BaseEvent;
 import com.example.calculator_app.events.NumberEvent;
+import com.example.calculator_app.events.OperatorEvent;
 import com.example.support.BusHelper;
-import com.squareup.otto.Bus;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -227,27 +227,27 @@ public class ButtonsFragmentTest {
 
     @Test
     public void buttonPlusShouldPostEvent() throws Exception {
-        verifyOperatorButtonShouldToast(mButtonPlus);
+        verifyOperatorEvent(mButtonPlus);
     }
 
     @Test
     public void buttonMinusShouldPostEvent() throws Exception {
-        verifyOperatorButtonShouldToast(mButtonMinus);
+        verifyOperatorEvent(mButtonMinus);
     }
 
     @Test
     public void buttonDivideShouldPostEvent() throws Exception {
-        verifyOperatorButtonShouldToast(mButtonDivide);
+        verifyOperatorEvent(mButtonDivide);
     }
 
     @Test
     public void buttonMultiplyShouldPostEvent() throws Exception {
-        verifyOperatorButtonShouldToast(mButtonMultiply);
+        verifyOperatorEvent(mButtonMultiply);
     }
 
     @Test
     public void buttonModulusShouldPostEvent() throws Exception {
-        verifyOperatorButtonShouldToast(mButtonModulus);
+        verifyOperatorEvent(mButtonModulus);
     }
 
     @Test
@@ -270,9 +270,11 @@ public class ButtonsFragmentTest {
                 equalTo(button.getText()));
     }
 
-    private void verifyOperatorButtonShouldToast(Button button) {
+    private void verifyOperatorEvent(Button button) {
         button.performClick();
-        assertThat(ShadowToast.getTextOfLatestToast(), equalTo(button.getText()));
+        BaseEvent event = mBusHelper.getLastEvent();
+        assertTrue(event instanceof OperatorEvent);
+        assertThat(((OperatorEvent)event).getOperator(), equalTo(button.getText()));
     }
 
 

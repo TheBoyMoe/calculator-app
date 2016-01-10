@@ -3,8 +3,9 @@ package com.example.calculator_app;
 import android.os.Build;
 import android.widget.EditText;
 
+import com.example.calculator_app.events.BaseEvent;
 import com.example.calculator_app.events.DisplayEvent;
-import com.example.support.ResourceLocator;
+import com.example.calculator_app.events.OperatorEvent;
 import com.example.support.ViewLocator;
 import com.squareup.otto.Bus;
 
@@ -15,6 +16,7 @@ import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
 import static com.example.support.Assert.assertViewIsVisible;
+import static com.example.support.ResourceLocator.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
@@ -26,6 +28,7 @@ public class DisplayFragmentTest {
 
 
     public static final String TEST_VALUE = "Test";
+    public static final String TEST_OPERATOR = "%";
     private DisplayFragment mDisplayFragment;
     private EditText mCalculatorDisplay;
     private Bus mBus;
@@ -47,13 +50,27 @@ public class DisplayFragmentTest {
     @Test
     public void shouldHaveDisplay() throws Exception {
         assertViewIsVisible(mCalculatorDisplay);
-        assertThat(mCalculatorDisplay.getText().toString(),
-                equalTo(ResourceLocator.getString(R.string.default_display_text)));
+        assertValueDisplayed(getString(R.string.default_display_text));
     }
 
     @Test
     public void shouldUpdateDisplayAfterDisplayEvent() throws Exception {
         mBus.post(new DisplayEvent(TEST_VALUE));
-        assertThat(mCalculatorDisplay.getText().toString(), equalTo(TEST_VALUE));
+        assertValueDisplayed(TEST_VALUE);
     }
+
+
+    @Test
+    public void shouldUpdateDisplayAfterOperatorEvent() throws Exception {
+        mBus.post(new OperatorEvent(TEST_OPERATOR));
+        assertValueDisplayed(TEST_OPERATOR);
+    }
+
+    private void assertValueDisplayed(String value) {
+        assertThat(mCalculatorDisplay.getText().toString(), equalTo(value));
+    }
+
+
+
+
 }

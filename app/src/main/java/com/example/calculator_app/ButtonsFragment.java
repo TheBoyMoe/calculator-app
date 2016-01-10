@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.calculator_app.events.NumberEvent;
+import com.example.calculator_app.events.OperatorEvent;
 
 public class ButtonsFragment extends Fragment{
 
@@ -102,8 +103,8 @@ public class ButtonsFragment extends Fragment{
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), ((Button)view).getText(),
-                        Toast.LENGTH_SHORT).show();
+                String operator = ((Button)view).getText().toString();
+                CalculatorApplication.postToBus(new OperatorEvent(operator));
             }
         };
     }
