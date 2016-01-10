@@ -6,6 +6,7 @@ import android.widget.Button;
 import com.example.calculator_app.events.BaseEvent;
 import com.example.calculator_app.events.NumberEvent;
 import com.example.support.BusHelper;
+import com.squareup.otto.Bus;
 
 import org.junit.Before;
 import org.junit.Test;

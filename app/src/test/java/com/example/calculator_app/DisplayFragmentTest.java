@@ -3,8 +3,10 @@ package com.example.calculator_app;
 import android.os.Build;
 import android.widget.EditText;
 
+import com.example.calculator_app.events.DisplayEvent;
 import com.example.support.ResourceLocator;
 import com.example.support.ViewLocator;
+import com.squareup.otto.Bus;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,8 +25,10 @@ import static org.robolectric.util.FragmentTestUtil.startFragment;
 public class DisplayFragmentTest {
 
 
+    public static final String TEST_VALUE = "Test";
     private DisplayFragment mDisplayFragment;
     private EditText mCalculatorDisplay;
+    private Bus mBus;
 
     @Before
     public void setUp() throws Exception {
@@ -32,6 +36,7 @@ public class DisplayFragmentTest {
         startFragment(mDisplayFragment);
 
         mCalculatorDisplay = (EditText) ViewLocator.getView(mDisplayFragment, R.id.calculator_display);
+        mBus = CalculatorApplication.getInstance().getBus();
     }
 
     @Test
@@ -46,6 +51,9 @@ public class DisplayFragmentTest {
                 equalTo(ResourceLocator.getString(R.string.default_display_text)));
     }
 
-
-
+    @Test
+    public void shouldUpdateDisplayAfterDisplayEvent() throws Exception {
+        mBus.post(new DisplayEvent(TEST_VALUE));
+        assertThat(mCalculatorDisplay.getText().toString(), equalTo(TEST_VALUE));
+    }
 }
