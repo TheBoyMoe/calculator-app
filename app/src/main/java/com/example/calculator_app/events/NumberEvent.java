@@ -1,6 +1,5 @@
 package com.example.calculator_app.events;
 
-
 public class NumberEvent extends BaseEvent{
 
     private String mNumber;
@@ -12,4 +11,5 @@ public class NumberEvent extends BaseEvent{
     public String getNumber() {
         return mNumber;
     }
+
 }
