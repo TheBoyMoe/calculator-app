@@ -10,6 +10,8 @@ import com.squareup.otto.Subscribe;
 
 public class CalculatorActivity extends AppCompatActivity {
 
+    public static final String STATE_FRAGMENT_TAG = "Calculator_state";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,8 +29,13 @@ public class CalculatorActivity extends AppCompatActivity {
                     .commit();
         }
 
-    }
+        if(getFragmentManager().findFragmentByTag(STATE_FRAGMENT_TAG) == null) {
+            getFragmentManager().beginTransaction()
+                    .add(CalculatorStateFragment.newInstance(), STATE_FRAGMENT_TAG)
+                    .commit();
+        }
 
+    }
 
 
     @Subscribe

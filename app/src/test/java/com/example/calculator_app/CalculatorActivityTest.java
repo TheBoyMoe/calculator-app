@@ -77,4 +77,17 @@ public class CalculatorActivityTest {
         assertThat(((DisplayEvent)event).getValue(), equalTo(number));
 
     }
+
+
+    @Test
+    public void shouldHaveCalculatorStateFragment() throws Exception {
+        Fragment stateFragment = getStateFragment();
+        assertNotNull(stateFragment);
+        assertTrue(stateFragment instanceof CalculatorStateFragment);
+    }
+
+    private Fragment getStateFragment() {
+        return mCalculatorActivity.getFragmentManager()
+                .findFragmentByTag(CalculatorActivity.STATE_FRAGMENT_TAG);
+    }
 }
