@@ -14,7 +14,9 @@ import com.squareup.otto.Subscribe;
 
 public class CalculatorStateFragment extends BaseFragment{
 
+    public static final int MAX_OPERAND_LENGTH = 10;
     private boolean mOperatorWasPressed;
+    private String mOperand  = "";
 
     public CalculatorStateFragment() {}
 
@@ -32,13 +34,17 @@ public class CalculatorStateFragment extends BaseFragment{
     // registering/unregistering and posting to the bus are handled by the BaseFragment
     @SuppressWarnings("unused")
     @Subscribe
-    public void onNumberSelected(NumberEvent event) {
+    public void onNumberEvent(NumberEvent event) {
+        if(maxOperatorLimitReached())
+            return;
+
         // when a number event is received, check if the operator was pressed prior to this event
         if(mOperatorWasPressed) {
             postToBus(new SetDisplayEvent(event.getNumber()));
         } else {
             postToBus(new AppendEvent(event.getNumber()));
         }
+        mOperand += event.getNumber();
         mOperatorWasPressed = false;
     }
 
@@ -46,8 +52,17 @@ public class CalculatorStateFragment extends BaseFragment{
     @Subscribe
     public void onOperatorEvent(OperatorEvent event) {
         mOperatorWasPressed = true;
+        mOperand = "";
+        postToBus(new SetDisplayEvent(event.getOperator()));
     }
 
 
+    public String getOperand() {
+        return mOperand;
+    }
+
+    private boolean maxOperatorLimitReached() {
+        return mOperand.length() >= MAX_OPERAND_LENGTH;
+    }
 
 }

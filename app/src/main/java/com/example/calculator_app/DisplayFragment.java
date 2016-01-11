@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.example.calculator_app.events.AppendEvent;
-import com.example.calculator_app.events.OperatorEvent;
 import com.example.calculator_app.events.SetDisplayEvent;
 import com.squareup.otto.Subscribe;
 
@@ -28,12 +27,6 @@ public class DisplayFragment extends BaseFragment{
         return mView;
     }
 
-    // registering/unregistering the bus are handled in the base fragment
-    @SuppressWarnings("unused")
-    @Subscribe
-    public void onOperatorDisplay(OperatorEvent event) {
-        mView.setText(event.getOperator());
-    }
 
     @SuppressWarnings("unused")
     @Subscribe

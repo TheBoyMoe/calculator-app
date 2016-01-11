@@ -32,7 +32,7 @@ public class DisplayFragmentTest {
 
 
     public static final String TEST_VALUE = "Test";
-    public static final String TEST_OPERATOR = "%";
+    //public static final String TEST_OPERATOR = "%";
     private DisplayFragment mDisplayFragment;
     private EditText mCalculatorDisplay;
     private Bus mBus;
@@ -66,11 +66,11 @@ public class DisplayFragmentTest {
     }
 
 
-    @Test
-    public void shouldUpdateDisplayAfterOperatorEvent() throws Exception {
-        mBus.post(new OperatorEvent(TEST_OPERATOR));
-        assertValueDisplayed(TEST_OPERATOR);
-    }
+//    @Test
+//    public void shouldUpdateDisplayAfterOperatorEvent() throws Exception {
+//        mBus.post(new OperatorEvent(TEST_OPERATOR));
+//        assertValueDisplayed(TEST_OPERATOR);
+//    }
 
     @Test
     public void appendEventShouldAppendDisplay() throws Exception {
