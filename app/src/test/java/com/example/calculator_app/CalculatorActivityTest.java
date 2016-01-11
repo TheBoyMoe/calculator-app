@@ -27,8 +27,6 @@ public class CalculatorActivityTest {
 
 
     private CalculatorActivity mCalculatorActivity;
-    private Bus mBus;
-    private BusHelper mBusHelper;
 
 
     @Before
@@ -38,9 +36,6 @@ public class CalculatorActivityTest {
                     .resume()
                     .get();
 
-        mBus = CalculatorApplication.getInstance().getBus();
-        mBusHelper = new BusHelper();
-        mBus.register(mBusHelper);
     }
 
     @Test
@@ -62,20 +57,6 @@ public class CalculatorActivityTest {
 
     private Fragment getFragmentById(int id) {
         return mCalculatorActivity.getFragmentManager().findFragmentById(id);
-    }
-
-    @Test
-    public void numberEventShouldFireDisplayEvent() throws Exception {
-
-        // post a number event to the bus and check that it triggers a display event by DisplayFragment
-        String number = "1";
-        mBus.post(new NumberEvent(number));
-
-        BaseEvent event = mBusHelper.getLastEvent();
-        assertTrue(event instanceof DisplayEvent);
-        assertThat(mBusHelper.numberOfEvents(), equalTo(2));
-        assertThat(((DisplayEvent)event).getValue(), equalTo(number));
-
     }
 
 
