@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.calculator_app.events.ClearEvent;
 import com.example.calculator_app.events.NumberEvent;
 import com.example.calculator_app.events.OperatorEvent;
 
@@ -81,8 +82,7 @@ public class ButtonsFragment extends BaseFragment{
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), ((Button)view).getText(),
-                        Toast.LENGTH_SHORT).show();
+                postToBus(new ClearEvent());
             }
         };
     }

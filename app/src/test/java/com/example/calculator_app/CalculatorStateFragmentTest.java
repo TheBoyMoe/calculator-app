@@ -5,9 +5,11 @@ import android.support.annotation.NonNull;
 
 import com.example.calculator_app.events.AppendEvent;
 import com.example.calculator_app.events.BaseEvent;
+import com.example.calculator_app.events.ClearEvent;
 import com.example.calculator_app.events.NumberEvent;
 import com.example.calculator_app.events.OperatorEvent;
 import com.example.calculator_app.events.SetDisplayEvent;
+import com.example.calculator_app.model.Operator;
 import com.example.support.BusHelper;
 import com.squareup.otto.Bus;
 
@@ -112,10 +114,24 @@ public class CalculatorStateFragmentTest {
         assertOperandEquals(expectedEvent);
     }
 
+    @Test
+    public void clearShouldClearOperand() throws Exception {
+        postNumberEvent();
+        postClearEvent();
+        assertThat(mStateFragment.getOperand(), equalTo(""));
+    }
+
+    @Test
+    public void clearShouldClearOperator() throws Exception {
+        postNumberEvent();
+        postClearEvent();
+        assertThat(mStateFragment.getOperator(), equalTo(Operator.NONE));
+    }
+
     private void assertDisplayEventWithValue(String value) {
         BaseEvent lastEvent = mBusHelper.getLastEvent();
         assertTrue(lastEvent instanceof SetDisplayEvent);
-        assertThat(((SetDisplayEvent)lastEvent).getValue(), equalTo(value));
+        assertThat(((SetDisplayEvent) lastEvent).getValue(), equalTo(value));
     }
 
 
@@ -159,5 +175,10 @@ public class CalculatorStateFragmentTest {
         // post a number event to the bus and check that it triggers an append event
         mBus.post(new NumberEvent(NUMBER_VALUE));
     }
+
+    private void postClearEvent() {
+        mBus.post(new ClearEvent());
+    }
+
 
 }

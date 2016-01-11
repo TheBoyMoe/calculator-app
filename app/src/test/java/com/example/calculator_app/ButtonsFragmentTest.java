@@ -4,6 +4,7 @@ import android.os.Build;
 import android.widget.Button;
 
 import com.example.calculator_app.events.BaseEvent;
+import com.example.calculator_app.events.ClearEvent;
 import com.example.calculator_app.events.NumberEvent;
 import com.example.calculator_app.events.OperatorEvent;
 import com.example.support.BusHelper;
@@ -256,11 +257,11 @@ public class ButtonsFragmentTest {
     }
 
     @Test
-    public void buttonClearShouldPostEvent() throws Exception {
-        verifyClearButtonShouldToast(mButtonClear);
+    public void clearButtonShouldPostClearEvent() throws Exception {
+        mButtonClear.performClick();
+        BaseEvent event = mBusHelper.getLastEvent();
+        assertTrue(event instanceof ClearEvent);
     }
-
-
 
     private void verifyNumberEvent(Button button) {
         button.performClick();
@@ -283,8 +284,5 @@ public class ButtonsFragmentTest {
         assertThat(ShadowToast.getTextOfLatestToast(), equalTo(button.getText()));
     }
 
-    private void verifyClearButtonShouldToast(Button button) throws Exception {
-        button.performClick();
-        assertThat(ShadowToast.getTextOfLatestToast(), equalTo(button.getText()));
-    }
+
 }

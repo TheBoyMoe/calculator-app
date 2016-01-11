@@ -5,6 +5,7 @@ import android.widget.EditText;
 
 import com.example.calculator_app.events.AppendEvent;
 import com.example.calculator_app.events.BaseEvent;
+import com.example.calculator_app.events.ClearEvent;
 import com.example.calculator_app.events.DisplayEvent;
 import com.example.calculator_app.events.OperatorEvent;
 import com.example.calculator_app.events.SetDisplayEvent;
@@ -32,7 +33,6 @@ public class DisplayFragmentTest {
 
 
     public static final String TEST_VALUE = "Test";
-    //public static final String TEST_OPERATOR = "%";
     private DisplayFragment mDisplayFragment;
     private EditText mCalculatorDisplay;
     private Bus mBus;
@@ -55,7 +55,7 @@ public class DisplayFragmentTest {
     @Test
     public void shouldHaveDisplay() throws Exception {
         assertViewIsVisible(mCalculatorDisplay);
-        assertValueDisplayed(getString(R.string.default_display_text));
+        assertDefaultDisplay();
     }
 
     @Test
@@ -65,12 +65,6 @@ public class DisplayFragmentTest {
         assertThat(mCalculatorDisplay.getText().toString(), equalTo(TEST_VALUE));
     }
 
-
-//    @Test
-//    public void shouldUpdateDisplayAfterOperatorEvent() throws Exception {
-//        mBus.post(new OperatorEvent(TEST_OPERATOR));
-//        assertValueDisplayed(TEST_OPERATOR);
-//    }
 
     @Test
     public void appendEventShouldAppendDisplay() throws Exception {
@@ -85,6 +79,21 @@ public class DisplayFragmentTest {
         postSetDisplayEvent();
         assertThat(mCalculatorDisplay.getText().toString(), equalTo(TEST_VALUE));
 
+    }
+
+    @Test
+    public void shouldClearDisplayOnClearEvent() throws Exception {
+        mCalculatorDisplay.setText(TEST_VALUE);
+        postClearEvent();
+        assertDefaultDisplay();
+    }
+
+    private void assertDefaultDisplay() {
+        assertValueDisplayed(getString(R.string.default_display_text));
+    }
+
+    private void postClearEvent() {
+        mBus.post(new ClearEvent());
     }
 
     private void postSetDisplayEvent() {
