@@ -1,6 +1,5 @@
 package com.example.calculator_app;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,7 @@ import android.widget.Toast;
 import com.example.calculator_app.events.NumberEvent;
 import com.example.calculator_app.events.OperatorEvent;
 
-public class ButtonsFragment extends Fragment{
+public class ButtonsFragment extends BaseFragment{
 
 
     private View mView;
@@ -47,7 +46,6 @@ public class ButtonsFragment extends Fragment{
         findAndSetOperatorButtonOnClickListener(R.id.button_multiply);
         findAndSetOperatorButtonOnClickListener(R.id.button_divide);
         findAndSetOperatorButtonOnClickListener(R.id.button_modulus);
-
     }
 
     private void configureNumberButtons() {
@@ -104,7 +102,7 @@ public class ButtonsFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 String operator = ((Button)view).getText().toString();
-                CalculatorApplication.postToBus(new OperatorEvent(operator));
+                postToBus(new OperatorEvent(operator));
             }
         };
     }
@@ -114,7 +112,7 @@ public class ButtonsFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 String number = ((Button)view).getText().toString();
-                CalculatorApplication.postToBus(new NumberEvent(number));
+                postToBus(new NumberEvent(number));
             }
         };
     }

@@ -1,6 +1,5 @@
 package com.example.calculator_app;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +8,9 @@ import android.widget.EditText;
 
 import com.example.calculator_app.events.DisplayEvent;
 import com.example.calculator_app.events.OperatorEvent;
-import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
-public class DisplayFragment extends Fragment{
+public class DisplayFragment extends BaseFragment{
 
     private EditText mView;
 
@@ -29,6 +27,7 @@ public class DisplayFragment extends Fragment{
         return mView;
     }
 
+    // registering/unregistering the bus are handled in the base fragment
     @SuppressWarnings("unused")
     @Subscribe
     public void onOperatorDisplay(OperatorEvent event) {
@@ -39,22 +38,6 @@ public class DisplayFragment extends Fragment{
     @Subscribe
     public void onDisplayEvent(DisplayEvent event) {
         mView.setText(event.getValue());
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        getAppBus().register(this);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        getAppBus().unregister(this);
-    }
-
-    private Bus getAppBus() {
-        return CalculatorApplication.getInstance().getBus();
     }
 
 
