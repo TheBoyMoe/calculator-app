@@ -6,8 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.example.calculator_app.events.DisplayEvent;
+import com.example.calculator_app.events.AppendEvent;
 import com.example.calculator_app.events.OperatorEvent;
+import com.example.calculator_app.events.SetDisplayEvent;
 import com.squareup.otto.Subscribe;
 
 public class DisplayFragment extends BaseFragment{
@@ -36,8 +37,23 @@ public class DisplayFragment extends BaseFragment{
 
     @SuppressWarnings("unused")
     @Subscribe
-    public void onDisplayEvent(DisplayEvent event) {
-        mView.setText(event.getValue());
+    public void onAppendDisplay(AppendEvent event) {
+        // retrieve the current display string and append the event string
+        setDisplay(getDisplayString() + event.getValue());
+    }
+
+    @SuppressWarnings("unused")
+    @Subscribe
+    public void onSetDisplay(SetDisplayEvent event) {
+        setDisplay(event.getValue());
+    }
+
+    public String getDisplayString() {
+        return mView.getText().toString();
+    }
+
+    private void setDisplay(String string) {
+        mView.setText(string);
     }
 
 

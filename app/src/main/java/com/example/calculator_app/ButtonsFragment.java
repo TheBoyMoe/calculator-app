@@ -27,7 +27,7 @@ public class ButtonsFragment extends BaseFragment{
         mView = inflater.inflate(R.layout.fragment_buttons, container, false);
         configureNumberButtons();
         configureOperatorButtons();
-        confingureEqualsButton();
+        configureEqualsButton();
         configureClearButton();
         return mView;
     }
@@ -36,7 +36,7 @@ public class ButtonsFragment extends BaseFragment{
         findAndSetClearButtonOnClickListener(R.id.button_clear);
     }
 
-    private void confingureEqualsButton() {
+    private void configureEqualsButton() {
         findAndSetEqualsButtonOnClickListener(R.id.button_equals);
     }
 
