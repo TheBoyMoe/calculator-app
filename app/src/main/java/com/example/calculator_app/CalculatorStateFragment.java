@@ -17,8 +17,9 @@ import com.squareup.otto.Subscribe;
 public class CalculatorStateFragment extends BaseFragment{
 
     public static final int MAX_OPERAND_LENGTH = 10;
+    public static final String DEFAULT_OPERAND = "";
     private boolean mOperatorWasPressed;
-    private String mOperand  = "";
+    private String mOperand  = DEFAULT_OPERAND;
     private Operator mOperator = Operator.NONE;
 
     public CalculatorStateFragment() {}
@@ -54,15 +55,23 @@ public class CalculatorStateFragment extends BaseFragment{
     @SuppressWarnings("unused")
     @Subscribe
     public void onOperatorEvent(OperatorEvent event) {
+        if(noNumberEntered()) {
+            return;
+        }
         mOperatorWasPressed = true;
-        mOperand = "";
-        postToBus(new SetDisplayEvent(event.getOperator()));
+        mOperand = DEFAULT_OPERAND;
+        mOperator = event.getOperator();
+        postToBus(new SetDisplayEvent(event.getOperator().getOperatorString()));
+    }
+
+    private boolean noNumberEntered() {
+        return mOperator == Operator.NONE && mOperand.equals(DEFAULT_OPERAND);
     }
 
     @SuppressWarnings("unused")
     @Subscribe
     public void onClearEvent(ClearEvent event) {
-        mOperand = "";
+        mOperand = DEFAULT_OPERAND;
         mOperator = Operator.NONE;
     }
 
@@ -78,4 +87,6 @@ public class CalculatorStateFragment extends BaseFragment{
     public Operator getOperator() {
         return mOperator;
     }
+
+
 }

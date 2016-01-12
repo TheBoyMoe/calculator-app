@@ -7,6 +7,7 @@ import com.example.calculator_app.events.BaseEvent;
 import com.example.calculator_app.events.ClearEvent;
 import com.example.calculator_app.events.NumberEvent;
 import com.example.calculator_app.events.OperatorEvent;
+import com.example.calculator_app.model.Operator;
 import com.example.support.BusHelper;
 
 import org.junit.Before;
@@ -228,27 +229,27 @@ public class ButtonsFragmentTest {
 
     @Test
     public void buttonPlusShouldPostEvent() throws Exception {
-        verifyOperatorEvent(mButtonPlus);
+        verifyOperatorEvent(mButtonPlus, Operator.PLUS);
     }
 
     @Test
     public void buttonMinusShouldPostEvent() throws Exception {
-        verifyOperatorEvent(mButtonMinus);
+        verifyOperatorEvent(mButtonMinus, Operator.MINUS);
     }
 
     @Test
     public void buttonDivideShouldPostEvent() throws Exception {
-        verifyOperatorEvent(mButtonDivide);
+        verifyOperatorEvent(mButtonDivide, Operator.DIVIDE);
     }
 
     @Test
     public void buttonMultiplyShouldPostEvent() throws Exception {
-        verifyOperatorEvent(mButtonMultiply);
+        verifyOperatorEvent(mButtonMultiply, Operator.MULTIPLY);
     }
 
     @Test
     public void buttonModulusShouldPostEvent() throws Exception {
-        verifyOperatorEvent(mButtonModulus);
+        verifyOperatorEvent(mButtonModulus, Operator.MODULO);
     }
 
     @Test
@@ -271,11 +272,11 @@ public class ButtonsFragmentTest {
                 equalTo(button.getText()));
     }
 
-    private void verifyOperatorEvent(Button button) {
+    private void verifyOperatorEvent(Button button, Operator operator) {
         button.performClick();
         BaseEvent event = mBusHelper.getLastEvent();
         assertTrue(event instanceof OperatorEvent);
-        assertThat(((OperatorEvent)event).getOperator(), equalTo(button.getText()));
+        assertThat(((OperatorEvent)event).getOperator(), equalTo(operator));
     }
 
 

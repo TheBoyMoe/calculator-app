@@ -19,6 +19,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
+import static com.example.calculator_app.CalculatorStateFragment.*;
 import static com.example.support.Assert.assertViewIsVisible;
 import static com.example.support.ResourceLocator.*;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -60,7 +61,7 @@ public class DisplayFragmentTest {
 
     @Test
     public void shouldUpdateBlankDisplayAfterAppendEvent() throws Exception {
-        mCalculatorDisplay.setText(""); // ADDED - blank the display
+        mCalculatorDisplay.setText(DEFAULT_OPERAND); // ADDED - blank the display
         mBus.post(new AppendEvent(TEST_VALUE));
         assertThat(mCalculatorDisplay.getText().toString(), equalTo(TEST_VALUE));
     }

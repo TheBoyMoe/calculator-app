@@ -29,4 +29,8 @@ public class BusHelper {
     public int numberOfEvents() {
         return mEvents.size();
     }
+
+    public int getEventListSize() {
+        return mEvents.size();
+    }
 }

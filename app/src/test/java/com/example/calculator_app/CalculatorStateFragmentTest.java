@@ -19,6 +19,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
+import static com.example.calculator_app.CalculatorStateFragment.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
@@ -31,8 +32,9 @@ public class CalculatorStateFragmentTest {
 
 
     public static final String NUMBER_VALUE = "1";
-    private static final String OPERATOR = "%";
+    private static final Operator OPERATOR = Operator.MODULO;
     private static final int OPERAND_LENGTH = 3;
+    private static final Operator OPERATOR2 = Operator.PLUS;
     private CalculatorStateFragment mStateFragment;
     private Bus mBus;
     private BusHelper mBusHelper;
@@ -40,7 +42,7 @@ public class CalculatorStateFragmentTest {
 
     @Before
     public void setUp() throws Exception {
-        mStateFragment = CalculatorStateFragment.newInstance();
+        mStateFragment = newInstance();
         startFragment(mStateFragment);
 
         mBus = CalculatorApplication.getInstance().getBus();
@@ -68,7 +70,7 @@ public class CalculatorStateFragmentTest {
     public void shouldSetDisplayAfterOperatorEvent() throws Exception {
 
         postNumberEvent();
-        postOperatorEvent();
+        postOperatorEvent(OPERATOR);
         postNumberEvent();
         assertDisplayEventWithValue(NUMBER_VALUE);
 
@@ -76,15 +78,16 @@ public class CalculatorStateFragmentTest {
 
     @Test
     public void operatorEventShouldFireSetEvent() throws Exception {
-        postOperatorEvent();
-        assertDisplayEventWithValue(OPERATOR);
+        constructDefaultOperand();
+        postOperatorEvent(OPERATOR);
+        assertDisplayEventWithValue(OPERATOR.getOperatorString());
     }
 
     @Test
     public void operandShouldNotExceedMaxLength() throws Exception {
         constructToLongOperand();
         assertThat(mStateFragment.getOperand().length(),
-                equalTo(CalculatorStateFragment.MAX_OPERAND_LENGTH));
+                equalTo(MAX_OPERAND_LENGTH));
     }
 
     @Test
@@ -102,14 +105,14 @@ public class CalculatorStateFragmentTest {
     @Test
     public void shouldResetOperandAfterOperator() throws Exception {
         constructOperand(OPERAND_LENGTH);
-        postOperatorEvent();
-        assertOperandEquals("");
+        postOperatorEvent(OPERATOR);
+        assertOperandEquals(DEFAULT_OPERAND);
     }
 
     @Test
     public void shouldConstructNumberAfterOperator() throws Exception {
         constructOperand(OPERAND_LENGTH);
-        postOperatorEvent();
+        postOperatorEvent(OPERATOR);
         String expectedEvent = constructOperand(OPERAND_LENGTH + 2);
         assertOperandEquals(expectedEvent);
     }
@@ -118,7 +121,7 @@ public class CalculatorStateFragmentTest {
     public void clearShouldClearOperand() throws Exception {
         postNumberEvent();
         postClearEvent();
-        assertThat(mStateFragment.getOperand(), equalTo(""));
+        assertThat(mStateFragment.getOperand(), equalTo(DEFAULT_OPERAND));
     }
 
     @Test
@@ -128,13 +131,38 @@ public class CalculatorStateFragmentTest {
         assertThat(mStateFragment.getOperator(), equalTo(Operator.NONE));
     }
 
+    @Test
+    public void shouldBeAbleToChangeOperators() throws Exception {
+        constructDefaultOperand();
+        postOperatorEvent(OPERATOR);
+        postOperatorEvent(OPERATOR2);
+        assertThat(mStateFragment.getOperator(), equalTo(OPERATOR2));
+
+    }
+
+    @Test
+    public void shouldNotUpdateOperatorOrOperandBeforeANumber() throws Exception {
+        postOperatorEvent(OPERATOR);
+        assertThat(mStateFragment.getOperator(), equalTo(Operator.NONE));
+        assertThat(mStateFragment.getOperand(), equalTo(DEFAULT_OPERAND));
+    }
+
+    @Test
+    public void operatorShouldNotFireSetDisplayEventBeforeANUmberIsEntered() throws Exception {
+        postOperatorEvent(OPERATOR);
+        assertThat(mBusHelper.getEventListSize(), equalTo(1));
+        assertTrue(mBusHelper.getLastEvent() instanceof OperatorEvent);
+    }
+
     private void assertDisplayEventWithValue(String value) {
         BaseEvent lastEvent = mBusHelper.getLastEvent();
         assertTrue(lastEvent instanceof SetDisplayEvent);
         assertThat(((SetDisplayEvent) lastEvent).getValue(), equalTo(value));
     }
 
-
+    private void constructDefaultOperand() {
+        constructOperand(OPERAND_LENGTH);
+    }
 
     private void assertOperandEquals(String expectedOperand) {
         assertThat(mStateFragment.getOperand(), equalTo(expectedOperand));
@@ -160,15 +188,15 @@ public class CalculatorStateFragmentTest {
     }
 
     private String maxTestOperand() {
-        return constructOperandMaybePost(CalculatorStateFragment.MAX_OPERAND_LENGTH, false);
+        return constructOperandMaybePost(MAX_OPERAND_LENGTH, false);
     }
 
     private void constructToLongOperand() {
-        constructOperand(CalculatorStateFragment.MAX_OPERAND_LENGTH + 2);
+        constructOperand(MAX_OPERAND_LENGTH + 2);
     }
 
-    private void postOperatorEvent() {
-        mBus.post(new OperatorEvent(OPERATOR));
+    private void postOperatorEvent(Operator operator) {
+        mBus.post(new OperatorEvent(operator));
     }
 
     private void postNumberEvent() {

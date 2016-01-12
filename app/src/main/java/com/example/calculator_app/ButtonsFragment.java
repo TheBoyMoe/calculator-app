@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.example.calculator_app.events.ClearEvent;
 import com.example.calculator_app.events.NumberEvent;
 import com.example.calculator_app.events.OperatorEvent;
+import com.example.calculator_app.model.Operator;
 
 public class ButtonsFragment extends BaseFragment{
 
@@ -42,11 +43,11 @@ public class ButtonsFragment extends BaseFragment{
     }
 
     private void configureOperatorButtons() {
-        findAndSetOperatorButtonOnClickListener(R.id.button_plus);
-        findAndSetOperatorButtonOnClickListener(R.id.button_minus);
-        findAndSetOperatorButtonOnClickListener(R.id.button_multiply);
-        findAndSetOperatorButtonOnClickListener(R.id.button_divide);
-        findAndSetOperatorButtonOnClickListener(R.id.button_modulus);
+        findAndSetOperatorButtonOnClickListener(R.id.button_plus, Operator.PLUS);
+        findAndSetOperatorButtonOnClickListener(R.id.button_minus, Operator.MINUS);
+        findAndSetOperatorButtonOnClickListener(R.id.button_multiply, Operator.MULTIPLY);
+        findAndSetOperatorButtonOnClickListener(R.id.button_divide, Operator.DIVIDE);
+        findAndSetOperatorButtonOnClickListener(R.id.button_modulus, Operator.MODULO);
     }
 
     private void configureNumberButtons() {
@@ -70,8 +71,8 @@ public class ButtonsFragment extends BaseFragment{
         mView.findViewById(id).setOnClickListener(createEqualsButtonListener());
     }
 
-    private void findAndSetOperatorButtonOnClickListener(int id) {
-        mView.findViewById(id).setOnClickListener(createOperatorButtonListener());
+    private void findAndSetOperatorButtonOnClickListener(int id, Operator operator) {
+        mView.findViewById(id).setOnClickListener(createOperatorButtonListener(operator));
     }
 
     private void findAndSetNumberButtonOnClickListener(int id) {
@@ -97,11 +98,10 @@ public class ButtonsFragment extends BaseFragment{
         };
     }
 
-    private View.OnClickListener createOperatorButtonListener() {
+    private View.OnClickListener createOperatorButtonListener(final Operator operator) {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String operator = ((Button)view).getText().toString();
                 postToBus(new OperatorEvent(operator));
             }
         };

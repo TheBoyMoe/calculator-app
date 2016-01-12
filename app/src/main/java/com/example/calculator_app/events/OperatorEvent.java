@@ -1,15 +1,17 @@
 package com.example.calculator_app.events;
 
 
+import com.example.calculator_app.model.Operator;
+
 public class OperatorEvent extends BaseEvent{
 
-    private final String mOperator;
+    private final Operator mOperator;
 
-    public OperatorEvent(String operator) {
+    public OperatorEvent(Operator operator) {
         mOperator = operator;
     }
 
-    public String getOperator() {
+    public Operator getOperator() {
         return mOperator;
     }
 }
